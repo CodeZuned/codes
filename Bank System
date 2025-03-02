@@ -1,0 +1,203 @@
+
+
+import javax.swing.*;
+
+class Account
+{
+	private String id;
+	private String name;
+	private int  balance;
+	
+	public Account()
+	{
+		id=JOptionPane.showInputDialog("Enter id");
+		name=JOptionPane.showInputDialog("enter name");
+		balance=Integer.parseInt(JOptionPane.showInputDialog("enter balance"));
+	
+	}
+	
+	public String getid()
+	{
+		return id;
+	}
+	
+	public String getname()
+	{
+		return name;
+	}
+	public int getbalance()
+	{
+		return balance;
+	}
+
+	public void display()
+	{
+		System.out.println("id :"+id);
+		System.out.println("name :"+name);
+		System.out.println("balance :"+balance);
+	}
+
+	public void deposit(int amt)
+	{
+		
+		
+		balance=balance+amt;
+	}
+
+	public void withdraw(int amt)
+	{
+		
+		if(amt<=balance)
+		{
+			balance=balance-amt;
+		}
+		else
+		{
+			System.out.println("balance is not sufficient");
+		}
+	}
+
+	public void TransferTo(Account a,int amt)
+	{
+		if(amt<=balance)
+		{
+			a.deposit(amt);
+			balance=balance-amt;
+		}
+		else
+		{
+			System.out.println("balance is not enough to transfer another aaccount");
+		}
+		
+	}
+
+}
+
+
+
+public class bank
+{
+	public static void main(String args[])
+	{
+		
+		Account A[]=new Account[5];
+		int size=5;
+		System.out.println("1 to open account");
+		System.out.println("2 for chceck bank details");
+		System.out.println("3 for deposit");
+		System.out.println("4 for withdranw");
+		System.out.println("5 for transfer another account");
+		System.out.println("6 for exit");
+		
+		
+		int ch;
+		int i=0;
+
+		while(true)
+		{
+			ch=Integer.parseInt(JOptionPane.showInputDialog("enter your choice"));
+		
+			if(ch==1)
+			{
+			
+				A[i]=new Account();
+				i++;
+				
+
+			}
+			else if(ch==2)
+			{
+				String id=JOptionPane.showInputDialog("enter your id");
+				int j=0;
+				while(j<size)
+				{
+						if(A[j].getid().equalsIgnoreCase(id)==true)
+						{
+						A[j].display();
+						break;
+						}
+						j++;
+						
+				}
+						
+			}
+			else if(ch==3)
+			{
+				String id=JOptionPane.showInputDialog("enter your id");
+				int amt=Integer.parseInt(JOptionPane.showInputDialog("enter deposit amount"));
+				int j=0;
+				while(j<size)
+				{
+						if(A[j].getid().equalsIgnoreCase(id)==true)
+						{
+						A[j].deposit(amt);
+						break;
+						}
+						j++;
+						
+				}
+
+				
+
+				
+
+			}
+			else if(ch==4)
+			{
+				String id=JOptionPane.showInputDialog("enter your id");
+				int amt=Integer.parseInt(JOptionPane.showInputDialog("enter withdrawal amount"));
+				int j=0;
+				while(j<size)
+				{
+						if(A[j].getid().equalsIgnoreCase(id)==true)
+						{
+						A[j].withdraw(amt);
+						break;
+						}
+						j++;
+						
+				}
+
+			}
+			else if(ch==5)
+			{
+				String id=JOptionPane.showInputDialog("enter your id recever");
+				int amt=Integer.parseInt(JOptionPane.showInputDialog("enter money for transfer another account "));
+				int j=0;
+				String t=JOptionPane.showInputDialog("enter sender id");
+				int idx=0;
+					while(true)
+					{
+					 if(A[idx].getid().equalsIgnoreCase(t)==true)
+						{
+							break;
+						}	
+						idx++;
+
+					}
+
+				while(j<size)
+				{
+					if(A[j].getid().equalsIgnoreCase(id)==true)
+					{
+						A[idx].TransferTo(A[j],amt);
+						break;
+					}
+					j++;
+				}
+				
+			}
+			else if(ch==6)
+			{
+				break;
+			}
+		}
+
+			
+
+	}
+}
+
+	
+		
+		
